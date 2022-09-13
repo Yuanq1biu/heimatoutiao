@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const PENDING = 'pending'
+      const FUFILLED = 'filled'
+      const REJECTED = 'rejected'
+      class Promise {
+        value
+        reason
+        status = PENDING
+        constructor(executor) {
+          const resolve = (value) => {
+            if (this.status === PENDING) {
+              this.value = value
+              this.status = FUFILLED
+            }
+          }
+          const reject = (reason) => {
+            if ((this, status === PENDING)) {
+              this.reason = reason
+              this.status = REJECTED
+            }
+          }
+          try {
+            executor(resolve, reject)
+          } catch (erroe) {
+            reject(error)
+          }
+        }
+        then(onFufilled,onRejected){
+            if(this.status === FUFILLED) {
+                onFufilled(this.value)
+            }
+            if(this.tatus ===REJECTED){
+                onRejected(this.reason)
+            }
+        }
+      }
+      console.log(
+        new Promise((resolve, reject) => {
+          //   resolve('成功')
+          reject('失败')
+        })
+      )
+
+      const p1 = new Promise(() => {}) //Pending
+      const p2 = new Promise((resolve) => resolve()) // fulfilled
+      const p3 = new Promise((resolve, reject) => reject()) // rejected
+
+      console.log('p1', p1, 'p2', p2, 'p3', p3)
+    </script>
+  </body>
+</html>
